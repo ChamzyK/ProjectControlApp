@@ -15,6 +15,6 @@ namespace ProjectControl.WEB.Services
             .AddScoped<IGenericRepository<Participation>, EFGenericRepository<Participation>>();
 
         public static IServiceCollection AddUnitOfWork(this IServiceCollection services)
-            => services.AddScoped<IUnitOfWork, EFUnitOfWork>
+            => services.AddScoped<IUnitOfWork, EFUnitOfWork>();
     }
 }
