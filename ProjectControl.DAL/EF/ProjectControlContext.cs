@@ -4,13 +4,13 @@ using ProjectControl.Domain.Entities;
 
 namespace ProjectControl.DAL.EF;
 
-public class ProjectControlAppContext : DbContext
+public class ProjectControlContext : DbContext
 {
     public DbSet<Project> Projects { get; set; } = null!;
     public DbSet<Employee> Employees { get; set; } = null!;
     public DbSet<Participation> Participations { get; set; } = null!;
 
-    public ProjectControlAppContext(DbContextOptions<ProjectControlAppContext> options) : base(options) { }
+    public ProjectControlContext(DbContextOptions<ProjectControlContext> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

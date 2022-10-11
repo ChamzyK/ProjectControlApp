@@ -8,10 +8,10 @@ namespace ProjectControl.DAL.Repositories.Generic;
 public class EFGenericRepository<TEntity> : IGenericRepository<TEntity>
     where TEntity : class
 {
-    private readonly ProjectControlAppContext _context;
+    private readonly ProjectControlContext _context;
     private readonly DbSet<TEntity> _set;
 
-    public EFGenericRepository(ProjectControlAppContext context)
+    public EFGenericRepository(ProjectControlContext context)
     {
         _context = context;
         _set = context.Set<TEntity>();

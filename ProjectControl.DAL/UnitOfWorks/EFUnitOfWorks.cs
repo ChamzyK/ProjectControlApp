@@ -8,12 +8,12 @@ namespace ProjectControl.DAL.UnitOfWorks;
 
 public class EFUnitOfWorks : IUnitOfWork
 {
-    private readonly ProjectControlAppContext _context;
+    private readonly ProjectControlContext _context;
     private bool _disposed;
 
     public Dictionary<Type, object> Repositories { get; set; }
 
-    public EFUnitOfWorks(ProjectControlAppContext context)
+    public EFUnitOfWorks(ProjectControlContext context)
     {
         _context = context;
 
