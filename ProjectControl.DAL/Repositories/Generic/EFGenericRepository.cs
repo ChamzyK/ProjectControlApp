@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace ProjectControl.DAL.Repositories.Generic;
 
-public class EFGenericRepository<TEntity> : IGenericRepository<TEntity>
+internal class EFGenericRepository<TEntity> : IGenericRepository<TEntity>
     where TEntity : class
 {
     private readonly ProjectControlContext _context;

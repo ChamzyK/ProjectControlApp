@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace ProjectControl.DAL.EF;
 
-public class ProjectControlContextFactory : IDesignTimeDbContextFactory<ProjectControlContext>
+internal class ProjectControlContextFactory : IDesignTimeDbContextFactory<ProjectControlContext>
 {
     //TODO: make a separate config file
     private static readonly string _connectionString = "Server=(localdb)\\MsSqlLocalDB; Database=ProjectControlDb; Trusted_Connection=True;";

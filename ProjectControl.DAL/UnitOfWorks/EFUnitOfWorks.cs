@@ -6,7 +6,7 @@ using ProjectControl.DAL.Repositories.Generic;
 
 namespace ProjectControl.DAL.UnitOfWorks;
 
-public class EFUnitOfWorks : IUnitOfWork
+internal class EFUnitOfWorks : IUnitOfWork
 {
     private readonly ProjectControlContext _context;
     private bool _disposed;

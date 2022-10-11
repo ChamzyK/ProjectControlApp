@@ -4,7 +4,7 @@ using ProjectControl.Domain.Entities;
 
 namespace ProjectControl.DAL.EF;
 
-public class ProjectControlContext : DbContext
+internal class ProjectControlContext : DbContext
 {
     public DbSet<Project> Projects { get; set; } = null!;
     public DbSet<Employee> Employees { get; set; } = null!;
