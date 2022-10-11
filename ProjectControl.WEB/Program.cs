@@ -1,10 +1,16 @@
 #region builder
 
+using ProjectControl.DAL.Registrars;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext(); //TODO: crutch
+builder.Services.AddRepositories();
+builder.Services.AddUnitOfWork();
 
 #endregion
 

@@ -19,10 +19,10 @@ namespace ProjectControl.DAL.Registrars
 
         public static IServiceCollection AddUnitOfWork(this IServiceCollection services)
         {
-            return services.AddScoped<IUnitOfWork, EFUnitOfWorks>();
+            return services.AddScoped<IUnitOfWork, EFUnitOfWork>();
         }
 
-        public static IServiceCollection AddDbContext(this ServiceCollection services)
+        public static IServiceCollection AddDbContext(this IServiceCollection services)
         {
             return services.AddScoped(provider => new ProjectControlContextFactory().CreateDbContext(null!));
         }
