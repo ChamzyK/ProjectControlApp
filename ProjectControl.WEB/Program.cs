@@ -24,7 +24,11 @@ if (app.Environment.IsDevelopment())
        .UseSwaggerUI();
 }
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.MapDefaultControllerRoute();
+
 app.Run();
 
 #endregion

@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Project controller | @ViewBag.Title</title>
+    <link rel="stylesheet" type="text/css" href="~/css/style.css" />
+</head>
+<body>
+
+    <header class="main-block">
+        <h1>ProjectControlApp</h1>
+        <a asp-controller="Home" asp-action="Index">Main</a> |
+        <a asp-controller="Home" asp-action="Projects">Projects</a> |
+        <a asp-controller="Home" asp-action="Employees">Employees</a> |
+        <a href="/swagger">Swagger</a>
+    </header>
+
+    <main class="main-block">
+        @RenderBody()
+    </main>
+
+    <footer class="main-block">
+        Links:
+        <a href="https://vk.com/tahdy_oglu" target="_blank" title="Link to page on the social network Вконтакте">Vkontakte</a> |
+        <a href="https://github.com/ChamzyK/" target="_blank" title="Link to project page on the Github">Github</a> |
+        e-mail: chamzykyrgys@mail.ru, 2022 г.
+    </footer>
+
+</body>
+</html>
