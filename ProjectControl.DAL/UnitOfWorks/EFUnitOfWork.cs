@@ -13,7 +13,7 @@ internal class EFUnitOfWorks : IUnitOfWork
 
     public Dictionary<Type, object> Repositories { get; set; }
 
-    public EFUnitOfWorks(ProjectControlContext context)
+    public EFUnitOfWork(ProjectControlContext context)
     {
         _context = context;
 
