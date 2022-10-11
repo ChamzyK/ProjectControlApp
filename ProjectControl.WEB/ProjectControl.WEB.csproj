@@ -7,7 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProjectControl.BLL\ProjectControl.BLL.csproj" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectControl.DAL\ProjectControl.DAL.csproj" />
     <ProjectReference Include="..\ProjectControl.Domain\ProjectControl.Domain.csproj" />
   </ItemGroup>
 
