@@ -49,7 +49,7 @@ public class ProjectsController : Controller
 
         _projectRepo.Create(project);
         _unitOfWork.SaveChanges();
-        return Ok();
+        return Json(project);
     }
 
     [HttpPut]
@@ -62,7 +62,7 @@ public class ProjectsController : Controller
 
         _projectRepo.Update(project);
         _unitOfWork.SaveChanges();
-        return Ok();
+        return Json(project);
     }
 
     [HttpDelete("{id:int}")]
@@ -77,7 +77,7 @@ public class ProjectsController : Controller
 
         _projectRepo.Remove(project);
         _unitOfWork.SaveChanges();
-        return Ok();
+        return Json(project);
     }
 
     #endregion

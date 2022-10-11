@@ -7,7 +7,7 @@ public interface IGenericRepository<TEntity>
 {
     void Create(TEntity entity);
 
-    TEntity? FindById(int id);
+    TEntity? FindById(params int[] id);
     IEnumerable<TEntity> Get();
     IEnumerable<TEntity> Get(Func<TEntity, bool> predicate);
     IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties);

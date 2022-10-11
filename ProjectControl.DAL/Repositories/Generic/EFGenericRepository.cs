@@ -22,7 +22,7 @@ internal class EFGenericRepository<TEntity> : IGenericRepository<TEntity>
         _set.Add(entity);
     }
 
-    public TEntity? FindById(int id)
+    public TEntity? FindById(params int[] id)
     {
         return _set.Find(id);
     }
@@ -39,7 +39,7 @@ internal class EFGenericRepository<TEntity> : IGenericRepository<TEntity>
 
     public void Update(TEntity entity)
     {
-        _context.ChangeTracker.Clear(); //crutch
+        _context.ChangeTracker.Clear(); //TODO: crutch
         _context.Entry(entity).State = EntityState.Modified;
     }
 
@@ -52,7 +52,6 @@ internal class EFGenericRepository<TEntity> : IGenericRepository<TEntity>
     {
         return Include(includeProperties).ToList();
     }
-
     public IEnumerable<TEntity> GetWithInclude(Func<TEntity, bool> predicate, params Expression<Func<TEntity, object>>[] includeProperties)
     {
         var query = Include(includeProperties);
