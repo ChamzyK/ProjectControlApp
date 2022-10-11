@@ -42,7 +42,7 @@ public class ProjectsController : Controller
     [HttpPost]
     public IActionResult AddProject(Project project)
     {
-        if (project.ProjectId != 0)
+        if (_projectRepo.FindById(project.ProjectId) != null)
         {
             return BadRequest();
         }

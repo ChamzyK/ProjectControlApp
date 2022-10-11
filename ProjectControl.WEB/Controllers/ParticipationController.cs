@@ -14,30 +14,23 @@ public class ParticipationController : Controller
         _unitOfWork = unitOfWork;
         _projectRepo = unitOfWork.GetGenericRepository<Project>();
         _employeeRepo = unitOfWork.GetGenericRepository<Employee>();
+        _participationRepo = unitOfWork.GetGenericRepository<Participation>();
     }
 
     private readonly IUnitOfWork _unitOfWork;
     private readonly IGenericRepository<Project> _projectRepo;
     private readonly IGenericRepository<Employee> _employeeRepo;
+    private readonly IGenericRepository<Participation> _participationRepo;
 
-    [HttpPost("{projectId:int}/{employeeId:int}")]
-    public IActionResult AddEmployee(int projectId, int employeeId)
+    [HttpPost]
+    public IActionResult AddEmployee(Participation participation)
     {
-        var project = _projectRepo.FindById(projectId);
-        var employee = _employeeRepo.FindById(employeeId);
-
-        if (project == null || employee == null)
+        if(_participationRepo.FindById(participation.ProjectId, participation.EmployeeId) != null)
         {
-            return NotFound();
+            return BadRequest();
         }
 
-        var employees = project.Employees ?? new List<Employee>();
-        if (employees.Contains(employee))
-        {
-            return Conflict($"Project with id({projectId}) already has employee with id({employeeId})");
-        }
-
-        employees.Add(employee);
+        _participationRepo.Create(participation);
         _unitOfWork.SaveChanges();
 
         return Ok();
@@ -87,6 +80,5 @@ public class ParticipationController : Controller
         participation.IsManaged = isManager;
         _unitOfWork.SaveChanges();
         return Json(project);
-
     }
 }

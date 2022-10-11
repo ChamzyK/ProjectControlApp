@@ -7,7 +7,7 @@ namespace ProjectControl.WEB.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class EmployeesController : Controller
+public class EmployeesController: Controller
 {
     public EmployeesController(IUnitOfWork unitOfWork)
     {
@@ -42,7 +42,7 @@ public class EmployeesController : Controller
     [HttpPost]
     public IActionResult AddEmployee(Employee employee)
     {
-        if (employee.EmployeeId != 0)
+        if (_employeeRepo.FindById(employee.EmployeeId) != null)
         {
             return BadRequest();
         }
