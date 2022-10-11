@@ -1,10 +1,10 @@
 ﻿using ProjectControl.Domain.Entities;
 using ProjectControl.Domain.Interfaces.Repositories;
 using ProjectControl.Domain.Interfaces.UnitOfWorks;
-using ProjectControlApp.DAL.EF;
-using ProjectControlApp.DAL.Repositories.Generic;
+using ProjectControl.DAL.EF;
+using ProjectControl.DAL.Repositories.Generic;
 
-namespace ProjectControlApp.DAL.UnitOfWorks;
+namespace ProjectControl.DAL.UnitOfWorks;
 
 public class EFUnitOfWorks : IUnitOfWork
 {

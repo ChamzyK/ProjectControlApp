@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace ProjectControlApp.DAL.EF;
+namespace ProjectControl.DAL.EF;
 
 public class ProjectControlAppContextFactory : IDesignTimeDbContextFactory<ProjectControlAppContext>
 {

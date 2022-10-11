@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6C183B9D-6CB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{67DAF214-9B66-42C0-8C46-847656C92782}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectControlApp.DAL", "ProjectControlApp.DAL\ProjectControlApp.DAL.csproj", "{8A89B15F-4264-4583-B2AD-07E836EBEE78}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectControl.DAL", "ProjectControl.DAL\ProjectControl.DAL.csproj", "{8A89B15F-4264-4583-B2AD-07E836EBEE78}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectControl.BLL", "ProjectControl.BLL\ProjectControl.BLL.csproj", "{C2C93D97-2556-41DB-A925-A26C3C70DBE9}"
 EndProject

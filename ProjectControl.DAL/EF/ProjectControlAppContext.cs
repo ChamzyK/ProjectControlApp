@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ProjectControl.Domain.Entities;
 
-namespace ProjectControlApp.DAL.EF;
+namespace ProjectControl.DAL.EF;
 
 public class ProjectControlAppContext : DbContext
 {

@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjectControl.Domain.Interfaces.Repositories;
-using ProjectControlApp.DAL.EF;
+using ProjectControl.DAL.EF;
 using System.Linq.Expressions;
 
-namespace ProjectControlApp.DAL.Repositories.Generic;
+namespace ProjectControl.DAL.Repositories.Generic;
 
 public class EFGenericRepository<TEntity> : IGenericRepository<TEntity>
     where TEntity : class
