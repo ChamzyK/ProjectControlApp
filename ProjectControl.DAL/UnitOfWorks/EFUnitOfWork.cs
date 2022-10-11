@@ -6,14 +6,14 @@ using ProjectControl.DAL.Repositories.Generic;
 
 namespace ProjectControl.DAL.UnitOfWorks;
 
-public class EFUnitOfWorks : IUnitOfWork
+public class EFUnitOfWork : IUnitOfWork
 {
     private readonly ProjectControlContext _context;
     private bool _disposed;
 
     public Dictionary<Type, object> Repositories { get; set; }
 
-    public EFUnitOfWorks(ProjectControlContext context)
+    public EFUnitOfWork(ProjectControlContext context)
     {
         _context = context;
 
