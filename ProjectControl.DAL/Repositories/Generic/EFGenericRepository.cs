@@ -17,18 +17,42 @@ internal class EFGenericRepository<TEntity> : IGenericRepository<TEntity>
         _set = context.Set<TEntity>();
     }
 
-    public void Create(TEntity entity) => _set.Add(entity);
+    public void Create(TEntity entity)
+    {
+        _set.Add(entity);
+    }
 
-    public TEntity? FindById(int id) => _set.Find(id);
-    public IEnumerable<TEntity> Get() => _set.AsNoTracking().ToList();
-    public IEnumerable<TEntity> Get(Func<TEntity, bool> predicate) => _set.AsNoTracking().Where(predicate).ToList();
+    public TEntity? FindById(int id)
+    {
+        return _set.Find(id);
+    }
 
-    public void Update(TEntity entity) => _context.Entry(entity).State = EntityState.Modified;
+    public IEnumerable<TEntity> Get()
+    {
+        return _set.AsNoTracking().ToList();
+    }
 
-    public void Remove(TEntity entity) => _set.Remove(entity);
+    public IEnumerable<TEntity> Get(Func<TEntity, bool> predicate)
+    {
+        return _set.AsNoTracking().Where(predicate).ToList();
+    }
 
+    public void Update(TEntity entity)
+    {
+        _context.ChangeTracker.Clear(); //crutch
+        _context.Entry(entity).State = EntityState.Modified;
+    }
 
-    public IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties) => Include(includeProperties).ToList();
+    public void Remove(TEntity entity)
+    {
+        _set.Remove(entity);
+    }
+
+    public IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties)
+    {
+        return Include(includeProperties).ToList();
+    }
+
     public IEnumerable<TEntity> GetWithInclude(Func<TEntity, bool> predicate, params Expression<Func<TEntity, object>>[] includeProperties)
     {
         var query = Include(includeProperties);

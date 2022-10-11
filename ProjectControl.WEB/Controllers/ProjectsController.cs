@@ -26,7 +26,7 @@ public class ProjectsController : Controller
         return Json(projects);
     }
 
-    [HttpGet("{id:int")]
+    [HttpGet("{id:int}")]
     public IActionResult GetProject(int id)
     {
         var project = _projectRepo.FindById(id);

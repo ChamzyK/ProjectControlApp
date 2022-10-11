@@ -49,7 +49,7 @@ public class EmployeesController : Controller
 
         _employeeRepo.Create(employee);
         _unitOfWork.SaveChanges();
-        return Ok();
+        return Json(employee);
     }
 
     [HttpPut]
@@ -62,7 +62,7 @@ public class EmployeesController : Controller
 
         _employeeRepo.Update(employee);
         _unitOfWork.SaveChanges();
-        return Ok();
+        return Json(employee);
     }
 
     [HttpDelete("{id:int}")]
@@ -77,7 +77,7 @@ public class EmployeesController : Controller
 
         _employeeRepo.Remove(employee);
         _unitOfWork.SaveChanges();
-        return Ok();
+        return Json(employee);
     }
 
     #endregion
