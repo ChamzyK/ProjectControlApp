@@ -5,6 +5,7 @@ using ProjectControl.Domain.Interfaces.UnitOfWorks;
 
 namespace ProjectControl.WEB.Controllers;
 
+//TODO: try rewrite to generic controller
 [ApiController]
 [Route("api/[controller]")]
 public class ProjectsController : Controller

@@ -24,6 +24,14 @@ internal class EFGenericRepository<TEntity> : IGenericRepository<TEntity>
 
     public TEntity? FindById(params int[] id)
     {
+        if (id.Length == 1) //TODO: crutch
+        {
+            return _set.Find(id[0]);
+        }
+        else if(id.Length == 2)
+        {
+            return _set.Find(id[0], id[1]);
+        }
         return _set.Find(id);
     }
 

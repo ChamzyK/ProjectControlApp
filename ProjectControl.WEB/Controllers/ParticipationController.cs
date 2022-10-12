@@ -16,13 +16,10 @@ public class ParticipationController : Controller
         _employeeRepo = unitOfWork.GetGenericRepository<Employee>();
         _participationRepo = unitOfWork.GetGenericRepository<Participation>();
     }
-
     private readonly IUnitOfWork _unitOfWork;
     private readonly IGenericRepository<Project> _projectRepo;
     private readonly IGenericRepository<Employee> _employeeRepo;
     private readonly IGenericRepository<Participation> _participationRepo;
-
-    #region Project api
 
     [HttpGet]
     public IActionResult GetParticipation()
@@ -50,7 +47,7 @@ public class ParticipationController : Controller
         var project = _projectRepo.FindById(participation.ProjectId);
         var employee = _employeeRepo.FindById(participation.EmployeeId);
 
-        if (_participationRepo.FindById(participation.ProjectId) != null)
+        if (_participationRepo.FindById(participation.ProjectId, participation.EmployeeId) != null)
         {
             return BadRequest();
         }
@@ -92,6 +89,4 @@ public class ParticipationController : Controller
         _unitOfWork.SaveChanges();
         return Json(participation);
     }
-
-    #endregion
 }
