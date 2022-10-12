@@ -22,63 +22,76 @@ public class ParticipationController : Controller
     private readonly IGenericRepository<Employee> _employeeRepo;
     private readonly IGenericRepository<Participation> _participationRepo;
 
-    [HttpPost]
-    public IActionResult AddEmployee(Participation participation)
+    #region Project api
+
+    [HttpGet]
+    public IActionResult GetParticipation()
     {
-        if(_participationRepo.FindById(participation.ProjectId, participation.EmployeeId) != null)
+        var participations = _participationRepo.GetWithInclude(p => p.Project!, p => p.Employee!);
+        return Json(participations);
+    }
+
+    [HttpGet("{projectId:int}/{employeeId:int}")]
+    public IActionResult GetParticipation(int projectId, int employeeId)
+    {
+        var participation = _participationRepo.FindById(projectId, employeeId);
+
+        if (participation == null)
+        {
+            return NotFound();
+        }
+
+        return Json(participation);
+    }
+
+    [HttpPost]
+    public IActionResult AddParticipation(Participation participation)
+    {
+        var project = _projectRepo.FindById(participation.ProjectId);
+        var employee = _employeeRepo.FindById(participation.EmployeeId);
+
+        if (_participationRepo.FindById(participation.ProjectId) != null)
         {
             return BadRequest();
         }
 
+        if(project == null || employee == null)
+        {
+            return NotFound();
+        }
+
         _participationRepo.Create(participation);
         _unitOfWork.SaveChanges();
+        return Json(participation);
+    }
 
-        return Ok();
+    [HttpPut]
+    public IActionResult EditParticipation(Participation participation)
+    {
+        if (_participationRepo.FindById(participation.ProjectId) == null)
+        {
+            return NotFound();
+        }
+
+        _participationRepo.Update(participation);
+        _unitOfWork.SaveChanges();
+        return Json(participation);
     }
 
     [HttpDelete("{projectId:int}/{employeeId:int}")]
-    public IActionResult RemoveEmployee(int projectId, int employeeId)
+    public IActionResult DeleteParticipation(int projectId, int employeeId)
     {
-        var project = _projectRepo.FindById(projectId);
-        var employee = _employeeRepo.FindById(employeeId);
+        var participation = _participationRepo.FindById(projectId, employeeId);
 
-        if (project == null || employee == null || project.Employees == null)
-        {
-            return NotFound();
-        }
-
-        project.Employees.Remove(employee);
-        _unitOfWork.SaveChanges();
-        return Json(project);
-    }
-
-    [HttpPut("{projectId:int}/{employeeId:int}/{isManager:bool?}")]
-    public IActionResult SetManager(int projectId, int employeeId, bool isManager = false)
-    {
-        var project = _projectRepo.FindById(projectId);
-        var employee = _employeeRepo.FindById(employeeId);
-
-        if (project == null || employee == null)
-        {
-            return NotFound();
-        }
-
-        var participation = project.Participations.Find(p => p.EmployeeId == employeeId);
         if (participation == null)
         {
-            return NotFound($"Employee {employee.LastName} {employee.FirstName} was not added on the project {project.Name}.");
+            return NotFound();
         }
 
-        if (isManager)
-        {
-            if (project.Participations.Any(part => part.IsManaged))
-            {
-                return Conflict($"Manager already define on the project {project.Name}.");
-            }
-        }
-
-        participation.IsManaged = isManager;
+        _participationRepo.Remove(participation);
         _unitOfWork.SaveChanges();
-        return Json(project);
+        return Json(participation);
     }
+
+    #endregion
 }
