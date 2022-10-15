@@ -33,7 +33,7 @@ async function updateProject(project) {
     }
 }
 
-function save() {
+function saveProjects() {
     const project = JSON.stringify({
         projectId: document.getElementById('idInput'),
         name: document.getElementById('name'),
@@ -84,6 +84,6 @@ function appendButtons(tr, projectId) {
     tr.append(createButtonTd(deleteButton));
 }
 
-SAVE_BTN.addEventListener("click", save);
+SAVE_BTN.addEventListener("click", saveProjects);
 
 getAll(API).forEach(project => _tBody.append(createRow(project)));

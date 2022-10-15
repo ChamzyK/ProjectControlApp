@@ -1,0 +1,31 @@
+﻿@model ProjectControl.Domain.Entities.Project
+<input type="hidden" asp-for="ProjectId" id="idInput" />
+<p>
+    <label asp-for="Name">Project name: </label>
+    <input type="text" asp-for="Name" id="name" />
+</p>
+
+<p>
+    <label asp-for="Client">Client company: </label>
+    <input type="text" asp-for="Client" id="client" />
+</p>
+
+<p>
+    <label asp-for="Executor">Executing Company: </label>
+    <input type="text" asp-for="Executor" id="executor" />
+</p>
+
+<p>
+    <label asp-for="Priority">Priority: </label>
+    <input type="text" asp-for="Priority" id="priority" />
+</p>
+
+<p>
+    <label asp-for="StartDate">Start date: </label>
+    <input type="date" asp-for="StartDate" id="startDate" />
+</p>
+
+<p>
+    <label asp-for="EndDate">End date: </label>
+    <input type="date" asp-for="EndDate" id="endDate" />
+</p>

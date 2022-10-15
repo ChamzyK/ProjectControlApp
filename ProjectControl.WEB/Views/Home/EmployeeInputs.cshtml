@@ -1,0 +1,21 @@
+﻿@model ProjectControl.Domain.Entities.Employee;
+<input type="hidden" asp-for="EmployeeId" id="idInput" />
+<p>
+    <label asp-for="LastName">Last name: </label>
+    <input type="text" asp-for="LastName" id="lastName" />
+</p>
+
+<p>
+    <label asp-for="FirstName">First name: </label>
+    <input type="text" asp-for="FirstName" id="firstName" />
+</p>
+
+<p>
+    <label asp-for="Patronymic">Patronymic: </label>
+    <input type="text" asp-for="Patronymic" id="patronymic" />
+</p>
+
+<p>
+    <label asp-for="Email">E-mail: </label>
+    <input type="text" asp-for="Email" id="email" />
+</p>

@@ -8,9 +8,17 @@ namespace ProjectControl.WEB.Controllers
         public async Task<IActionResult> Index() => await Task.Run(() => View());
 
         [HttpGet]
-        public async Task<IActionResult> Projects() => await Task.Run(() => View());
+        public async Task<IActionResult> Projects()
+        {
+            ViewBag.Title = "Projects";
+            return await Task.Run(() => View("ApiShared"));
+        }
 
         [HttpGet]
-        public async Task<IActionResult> Employees() => await Task.Run(() => View());
+        public async Task<IActionResult> Employees()
+        {
+            ViewBag.Title = "Employees";
+            return await Task.Run(() => View("ApiShared"));
+        }
     }
 }

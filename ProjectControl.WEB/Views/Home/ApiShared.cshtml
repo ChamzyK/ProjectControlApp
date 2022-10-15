@@ -1,0 +1,51 @@
+﻿<div>
+    <h3 id="headingId">Create form</h3>
+
+    <div id="inputsDiv">
+        @{
+            if (ViewBag.Title == "Employees")
+            {
+                await Html.RenderPartialAsync("EmployeesInputs");
+            }
+            else if(ViewBag.Title == "Projects")
+            {
+                await Html.RenderPartialAsync("ProjectsInputs");
+            }
+        }
+    </div>
+
+    <div id="buttonsDiv">
+        <p>
+            <input type="submit" value="Save" id="saveButton" />
+            <input type="reset" value="Reset" id="resetButton" />
+        </p>
+    </div>
+
+    <hr />
+
+    <div id="tableDiv">
+        @{
+            if (ViewBag.Title == "Employees")
+            {
+                await Html.RenderPartialAsync("EmployeesTable");
+            }
+            else if (ViewBag.Title == "Projects")
+            {
+                await Html.RenderPartialAsync("ProjectsTable");
+            }
+        }
+    </div>
+
+    <script src="~/js/apiShared.js"></script>
+    @{
+        if (ViewBag.Title == "Employees")
+        {
+            <script src="~/js/employees.js"></script>
+        }
+        else if (ViewBag.Title == "Projects")
+        {
+            <script src="~/js/projectsOrder.js"></script>
+            <script src="~/js/projects.js"></script>
+        }
+    }
+</div>
