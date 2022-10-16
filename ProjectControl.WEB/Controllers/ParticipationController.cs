@@ -41,6 +41,23 @@ public class ParticipationController : Controller
         return Json(participation);
     }
 
+    [HttpGet("{projectId:int}")]
+    public IActionResult GetEmployees(int projectId)
+    {
+        var projects = _projectRepo.GetWithInclude(
+            project => project.ProjectId == projectId,
+            project => project.Employees!);
+        
+        if(projects.Count() != 1)
+        {
+            return NotFound();
+        }
+
+        var project = projects.First();
+
+        return Json(project.Employees);
+    }
+
     [HttpPost]
     public IActionResult AddParticipation(Participation participation)
     {
@@ -89,4 +106,5 @@ public class ParticipationController : Controller
         _unitOfWork.SaveChanges();
         return Json(participation);
     }
+
 }
