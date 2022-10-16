@@ -51,7 +51,7 @@ namespace ProjectControl.DAL.Migrations
 
                     b.HasKey("EmployeeId");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees", (string)null);
                 });
 
             modelBuilder.Entity("ProjectControl.Domain.Entities.Participation", b =>
@@ -104,7 +104,7 @@ namespace ProjectControl.DAL.Migrations
 
                     b.HasKey("ProjectId");
 
-                    b.ToTable("Projects");
+                    b.ToTable("Projects", (string)null);
 
                     b.HasCheckConstraint("CH_EndDate", "EndDate > StartDate");
                 });
