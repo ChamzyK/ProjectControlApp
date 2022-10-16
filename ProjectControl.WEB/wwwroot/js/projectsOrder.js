@@ -21,11 +21,11 @@ function orderProjects(cellId, comparator) {
     orderTable(compareFn);
 }
 function orderTable(compareFn) {
-    const sortedRows = Array.from(document.getElementById("tBody"))
+    const sortedRows = Array.from(projectsTable.rows)
         .slice(1)
         .sort(compareFn);
 
-    projectsTbody.parentNode.tBodies[0].append(...sortedRows);
+    projectsTable.tBodies[0].append(...sortedRows);
 }
 
 document.getElementById("nameTh").addEventListener('click', () => orderProjects(NAME_ID, stringComparator));

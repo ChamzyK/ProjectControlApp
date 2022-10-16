@@ -71,4 +71,9 @@ function appendEmployee(tr, employee) {
 
 SAVE_BTN.addEventListener("click", saveEmployee);
 
-getAll(API).forEach(employee => _tBody.append(createEmployeeTr(employee)));
+async function fillEmployeesTable() {
+    const employees = await getAll(API);
+    employees.forEach(employee => TBODY.append(createEmployeeTr(employee)));
+}
+
+fillEmployeesTable();

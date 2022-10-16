@@ -5,11 +5,11 @@
         @{
             if (ViewBag.Title == "Employees")
             {
-                await Html.RenderPartialAsync("EmployeesInputs");
+                await Html.RenderPartialAsync("EmployeeInputs");
             }
             else if(ViewBag.Title == "Projects")
             {
-                await Html.RenderPartialAsync("ProjectsInputs");
+                await Html.RenderPartialAsync("ProjectInputs");
             }
         }
     </div>
@@ -27,11 +27,11 @@
         @{
             if (ViewBag.Title == "Employees")
             {
-                await Html.RenderPartialAsync("EmployeesTable");
+                await Html.RenderPartialAsync("EmployeeTable");
             }
             else if (ViewBag.Title == "Projects")
             {
-                await Html.RenderPartialAsync("ProjectsTable");
+                await Html.RenderPartialAsync("ProjectTable");
             }
         }
     </div>

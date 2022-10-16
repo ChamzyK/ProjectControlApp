@@ -64,8 +64,11 @@ function appendButtons(tr, id) {
     const changeButton = createButton("Change", async () => await getById(API, id));
     const deleteButton = createButton("Delete", async () => await deleteById(API, id));
 
-    tr.append(createButtonTd(changeButton));
-    tr.append(createButtonTd(deleteButton));
+    const changeBtnTd = createButtonTd(changeButton);
+    const deleteBtnTd = createButtonTd(deleteButton);
+
+    tr.append(changeBtnTd);
+    tr.append(deleteBtnTd);
 }
 function createButton(text, clickFunc) {
     const button = document.createElement("button");
@@ -74,7 +77,9 @@ function createButton(text, clickFunc) {
     return button;
 }
 function createButtonTd(button) {
-    return document.createElement('td').append(button);
+    const td = document.createElement('td');
+    td.append(button);
+    return td;
 }
 
 function createTr(id) {

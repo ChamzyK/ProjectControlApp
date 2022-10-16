@@ -79,4 +79,9 @@ function appendProject(tr, project) {
 
 SAVE_BTN.addEventListener("click", saveProject);
 
-getAll(API).forEach(project => _tBody.append(createProjectTr(project)));
+async function fillProjectsTable() {
+    const projects = await getAll(API);
+    projects.forEach(project => TBODY.append(createProjectTr(project)));
+}
+
+fillProjectsTable();
