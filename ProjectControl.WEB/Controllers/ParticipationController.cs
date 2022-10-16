@@ -28,19 +28,6 @@ public class ParticipationController : Controller
         return Json(participations);
     }
 
-    [HttpGet("{projectId:int}/{employeeId:int}")]
-    public IActionResult GetParticipation(int projectId, int employeeId)
-    {
-        var participation = _participationRepo.FindById(projectId, employeeId);
-
-        if (participation == null)
-        {
-            return NotFound();
-        }
-
-        return Json(participation);
-    }
-
     [HttpGet("{projectId:int}")]
     public IActionResult GetEmployees(int projectId)
     {
@@ -56,6 +43,19 @@ public class ParticipationController : Controller
         var project = projects.First();
 
         return Json(project.Employees);
+    }
+
+    [HttpGet("{projectId:int}/{employeeId:int}")]
+    public IActionResult GetParticipation(int projectId, int employeeId)
+    {
+        var participation = _participationRepo.FindById(projectId, employeeId);
+
+        if (participation == null)
+        {
+            return NotFound();
+        }
+
+        return Json(participation);
     }
 
     [HttpPost]
@@ -106,5 +106,4 @@ public class ParticipationController : Controller
         _unitOfWork.SaveChanges();
         return Json(participation);
     }
-
 }

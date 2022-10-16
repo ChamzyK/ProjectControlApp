@@ -40,6 +40,54 @@ public class ProjectsController : Controller
         return Json(project);
     }
 
+    [HttpGet("{propName:string}/{filter:string}")]
+    public IActionResult FilterByString(string propName, string filter) //TODO: rewrite to switch method?
+    {
+        if(propName == nameof(Project.Name))
+        {
+            var projects = _projectRepo.Get(project => project.Name!.Contains(filter));
+            return Json(projects);
+        }
+        else if(propName == nameof(Project.Client))
+        {
+            var projects = _projectRepo.Get(project => project.Client!.Contains(filter));
+            return Json(projects);
+        }
+        else if (propName == nameof(Project.Executor))
+        {
+            var projects = _projectRepo.Get(project => project.Executor!.Contains(filter));
+            return Json(projects);
+        }
+        return BadRequest();
+    }
+
+    [HttpGet("{propName:string}/{filter:int}")]
+    public IActionResult FilterByInt(string propName, int filter)
+    {
+        if (propName == nameof(Project.Priority))
+        {
+            var projects = _projectRepo.Get(project => project.Priority == filter);
+            return Json(projects);
+        }
+        return BadRequest();
+    }
+
+    [HttpGet("{propName:string}/{startFilter:DateTime}/{endFilter:DateTime}}")]
+    public IActionResult FilterByDate(string propName, DateTime startFilter, DateTime endFilter)
+    {
+        if (propName == nameof(Project.StartDate))
+        {
+            var projects = _projectRepo.Get(project => project.StartDate >= startFilter && project.StartDate <= endFilter);
+            return Json(projects);
+        }
+        else if (propName == nameof(Project.EndDate))
+        {
+            var projects = _projectRepo.Get(project => project.EndDate >= startFilter && project.EndDate <= endFilter);
+            return Json(projects);
+        }
+        return BadRequest();
+    }
+
     [HttpPost]
     public IActionResult AddProject(Project project)
     {
