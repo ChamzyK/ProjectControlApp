@@ -1,5 +1,28 @@
 ﻿const API = '/api/projects'
 
+function saveProject() {
+    const project = getJsonProject();
+
+    if (project.projectId === 0) {
+        createProject(project);
+    }
+    else {
+        updateProject(project);
+    }
+
+    reset();
+}
+function getJsonProject() {
+    return JSON.stringify({
+        projectId: document.getElementById('idInput'),
+        name: document.getElementById('name'),
+        client: document.getElementById('client'),
+        executor: document.getElementById('executor'),
+        priority: document.getElementById('priority'),
+        startDate: document.getElementById('startDate'),
+        endDate: document.getElementById('endDate')
+    });
+}
 async function createProject(project) {
     const response = await fetch(API,
         {
@@ -10,7 +33,7 @@ async function createProject(project) {
 
     if (response.ok) {
         const project = await response.json();
-        _tBody.append(createRow(project));
+        _tBody.append(createProjectTr(project));
     }
     else {
         console.error("something wrong with createProject function");
@@ -26,44 +49,22 @@ async function updateProject(project) {
 
     if (response.ok) {
         const project = await response.json();
-        getTr(project.projectId).replaceWith(createRow(project));
+        getTr(project.projectId).replaceWith(createProjectTr(project));
     }
     else {
         console.error("something wrong with updateProject function");
     }
 }
 
-function saveProjects() {
-    const project = JSON.stringify({
-        projectId: document.getElementById('idInput'),
-        name: document.getElementById('name'),
-        client: document.getElementById('client'),
-        executor: document.getElementById('executor'),
-        priority: document.getElementById('priority'),
-        startDate: document.getElementById('startDate'),
-        endDate: document.getElementById('endDate')
-    })
-
-    if (project.projectId === 0) {
-        createProject(project);
-    }
-    else {
-        updateProject(project);
-    }
-
-    reset();
-}
-
-function createRow(project) {
+function createProjectTr(project) {
     const tr = createTr(project.projectId);
 
-    appendContent(tr, project);
+    appendProject(tr, project);
     appendButtons(tr, project.projectId);
 
     return tr;
 }
-
-function appendContent(tr, project) {
+function appendProject(tr, project) {
     tr.append(createTd(project.name));
     tr.append(createTd(project.client));
     tr.append(createTd(project.executor));
@@ -76,14 +77,6 @@ function appendContent(tr, project) {
     tr.append(createTd(endDate));
 }
 
-function appendButtons(tr, projectId) {
-    const changeButton = createButton("Change", async () => await getById(API, projectId));
-    const deleteButton = createButton("Delete", async () => await deleteById(API, projectId));
+SAVE_BTN.addEventListener("click", saveProject);
 
-    tr.append(createButtonTd(changeButton));
-    tr.append(createButtonTd(deleteButton));
-}
-
-SAVE_BTN.addEventListener("click", saveProjects);
-
-getAll(API).forEach(project => _tBody.append(createRow(project)));
+getAll(API).forEach(project => _tBody.append(createProjectTr(project)));

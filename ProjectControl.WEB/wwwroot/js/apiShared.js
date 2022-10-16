@@ -60,6 +60,13 @@ ID.addEventListener("change", () => {
     }
 });
 
+function appendButtons(tr, id) {
+    const changeButton = createButton("Change", async () => await getById(API, id));
+    const deleteButton = createButton("Delete", async () => await deleteById(API, id));
+
+    tr.append(createButtonTd(changeButton));
+    tr.append(createButtonTd(deleteButton));
+}
 function createButton(text, clickFunc) {
     const button = document.createElement("button");
     button.innerHTML = text;
