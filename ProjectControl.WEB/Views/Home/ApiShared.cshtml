@@ -1,13 +1,11 @@
 ﻿<div>
-    <h3 id="headingId">Create form</h3>
-
     <div id="inputsDiv">
         @{
             if (ViewBag.Title == "Employees")
             {
                 await Html.RenderPartialAsync("EmployeeInputs");
             }
-            else if(ViewBag.Title == "Projects")
+            else if (ViewBag.Title == "Projects")
             {
                 await Html.RenderPartialAsync("ProjectInputs");
             }

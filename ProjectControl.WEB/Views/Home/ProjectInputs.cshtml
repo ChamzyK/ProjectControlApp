@@ -1,5 +1,5 @@
 ﻿@model ProjectControl.Domain.Entities.Project
-<input type="hidden" asp-for="ProjectId" id="idInput" />
+<input type="hidden" asp-for="ProjectId" id="idInput" value="0"/>
 <p>
     <label asp-for="Name">Project name: </label>
     <input type="text" asp-for="Name" id="name" />
@@ -11,7 +11,7 @@
 </p>
 
 <p>
-    <label asp-for="Executor">Executing Company: </label>
+    <label asp-for="Executor">Executing company: </label>
     <input type="text" asp-for="Executor" id="executor" />
 </p>
 

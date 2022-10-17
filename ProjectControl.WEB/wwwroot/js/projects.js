@@ -3,7 +3,7 @@
 function saveProject() {
     const project = getJsonProject();
 
-    if (project.projectId === 0) {
+    if (ID.value == 0) {
         createProject(project);
     }
     else {
@@ -14,13 +14,13 @@ function saveProject() {
 }
 function getJsonProject() {
     return JSON.stringify({
-        projectId: document.getElementById('idInput'),
-        name: document.getElementById('name'),
-        client: document.getElementById('client'),
-        executor: document.getElementById('executor'),
-        priority: document.getElementById('priority'),
-        startDate: document.getElementById('startDate'),
-        endDate: document.getElementById('endDate')
+        projectId: document.getElementById('idInput').value,
+        name: document.getElementById('name').value,
+        client: document.getElementById('client').value,
+        executor: document.getElementById('executor').value,
+        priority: document.getElementById('priority').value,
+        startDate: document.getElementById('startDate').value,
+        endDate: document.getElementById('endDate').value
     });
 }
 async function createProject(project) {
@@ -33,7 +33,7 @@ async function createProject(project) {
 
     if (response.ok) {
         const project = await response.json();
-        _tBody.append(createProjectTr(project));
+        TBODY.append(createProjectTr(project));
     }
     else {
         console.error("something wrong with createProject function");
@@ -76,8 +76,34 @@ function appendProject(tr, project) {
     const endDate = getSmallDate(project.endDate);
     tr.append(createTd(endDate));
 }
+function appendButtons(tr, id) {
+    const changeButton = createButton("Change", async () => await fillInputs(id));
+    const deleteButton = createButton("Delete", async () => await deleteById(API, id));
+
+    const changeBtnTd = createButtonTd(changeButton);
+    const deleteBtnTd = createButtonTd(deleteButton);
+
+    tr.append(changeBtnTd);
+    tr.append(deleteBtnTd);
+}
 
 SAVE_BTN.addEventListener("click", saveProject);
+
+async function fillInputs(id) {
+    const project = await getById(API, id);
+
+    document.getElementById('idInput').value = project.projectId;
+    document.getElementById('name').value = project.name;
+    document.getElementById('client').value = project.client;
+    document.getElementById('executor').value = project.executor;
+    document.getElementById('priority').value = project.priority;
+
+    const startDate = new Date(project.startDate);
+    document.getElementById('startDate').value = `${startDate.getFullYear()}-${(startDate.getMonth() + 1).toString().padStart(2, 0)}-${startDate.getDate().toString().padStart(2, 0) }`;
+
+    const endDate = new Date(project.endDate);
+    document.getElementById('endDate').value = `${endDate.getFullYear()}-${(endDate.getMonth() + 1).toString().padStart(2, 0)}-${endDate.getDate().toString().padStart(2, 0)}`;
+}
 
 async function fillProjectsTable() {
     const projects = await getAll(API);

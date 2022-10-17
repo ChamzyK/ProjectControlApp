@@ -1,7 +1,6 @@
 ﻿const ID_QUALIFIED_NAME = 'data-rowid'
 
 const INPUTS_DIV = document.getElementById('inputsDiv');
-const HEADING = document.getElementById("headingId");
 const ID = document.getElementById("idInput");
 const TBODY = document.getElementById("tBody");
 const SAVE_BTN = document.getElementById('saveButton');
@@ -48,28 +47,14 @@ async function deleteById(api, id) {
 
 RESET_BTN.addEventListener('click', reset);
 function reset() {
-    INPUTS_DIV.getElementsByTagName('input').forEach(input => input.value = '');
-    ID.onchange();
-}
-ID.addEventListener("change", () => {
-    if (ID.value === 0) {
-        HEADING.innerText = "Project create form";
+    const inputs = INPUTS_DIV.getElementsByTagName('input');
+
+    for (let i = 0; i < inputs.length; i++) {
+        inputs[i].value = '';
     }
-    else {
-        HEADING.innerText = `Project with id (${ID.value}) edit form`;
-    }
-});
-
-function appendButtons(tr, id) {
-    const changeButton = createButton("Change", async () => await getById(API, id));
-    const deleteButton = createButton("Delete", async () => await deleteById(API, id));
-
-    const changeBtnTd = createButtonTd(changeButton);
-    const deleteBtnTd = createButtonTd(deleteButton);
-
-    tr.append(changeBtnTd);
-    tr.append(deleteBtnTd);
+    ID.value = 0;
 }
+
 function createButton(text, clickFunc) {
     const button = document.createElement("button");
     button.innerHTML = text;
