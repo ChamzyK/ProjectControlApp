@@ -80,8 +80,16 @@ function appendEmployee(tr, employee) {
     tr.append(createTd(employee.email));
 }
 function appendButtons(tr, id) {
-    const changeButton = createButton("Change", async () => await fillInputs(id));
-    const deleteButton = createButton("Delete", async () => await deleteById(API, id));
+    const changeButton = createButton("Change", async (e) => {
+        e.target.disabled = true;
+        await fillInputs(id)
+        e.target.disabled = false;
+    });
+    const deleteButton = createButton("Delete", async (e) => {
+        e.target.disabled = true;
+        await deleteById(API, id)
+        e.target.disabled = false;
+    });
 
     const changeBtnTd = createButtonTd(changeButton);
     const deleteBtnTd = createButtonTd(deleteButton);

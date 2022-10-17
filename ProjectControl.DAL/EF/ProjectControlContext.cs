@@ -12,11 +12,7 @@ internal class ProjectControlContext : DbContext
 
     private static readonly Random _random = new(Guid.NewGuid().GetHashCode());
 
-    public ProjectControlContext(DbContextOptions<ProjectControlContext> options) : base(options)
-    {
-        Database.EnsureDeleted();
-        Database.EnsureCreated();
-    }
+    public ProjectControlContext(DbContextOptions<ProjectControlContext> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -219,5 +215,4 @@ internal class ProjectControlContext : DbContext
             arr[_random.Next(0, arr.Length)].IsManaged = true;
         }
     }
-
 }
