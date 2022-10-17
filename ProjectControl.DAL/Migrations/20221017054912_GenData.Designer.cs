@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectControl.DAL.EF;
 
@@ -11,9 +12,10 @@ using ProjectControl.DAL.EF;
 namespace ProjectControl.DAL.Migrations
 {
     [DbContext(typeof(ProjectControlContext))]
-    partial class ProjectControlContextModelSnapshot : ModelSnapshot
+    [Migration("20221017054912_GenData")]
+    partial class GenData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

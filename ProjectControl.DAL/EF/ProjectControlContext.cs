@@ -10,6 +10,8 @@ internal class ProjectControlContext : DbContext
     public DbSet<Employee> Employees { get; set; } = null!;
     public DbSet<Participation> Participations { get; set; } = null!;
 
+    private static readonly Random _random = new(Guid.NewGuid().GetHashCode());
+
     public ProjectControlContext(DbContextOptions<ProjectControlContext> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -46,9 +48,13 @@ internal class ProjectControlContext : DbContext
                 typeBuilder.ToTable(nameof(Participation));
             });
 
-        modelBuilder.Entity<Participation>().HasData(GetProjects());
-        modelBuilder.Entity<Participation>().HasData(GetEmployees());
-        modelBuilder.Entity<Participation>().HasData(GetParticipations());
+        var projects = GetProjects();
+        var employees = GetEmployees();
+        var participations = GetParticipations();
+
+        modelBuilder.Entity<Project>().HasData(projects);
+        modelBuilder.Entity<Employee>().HasData(employees);
+        modelBuilder.Entity<Participation>().HasData(participations);
     }
 
     private static void SetUp(EntityTypeBuilder<Project> project)
@@ -93,6 +99,7 @@ internal class ProjectControlContext : DbContext
             Name = "Odyssey",
             Client = "Fonie",
             Executor = "Nodesmith",
+            Priority = 1,
             StartDate = new DateTime(2020, 6, 12),
             EndDate = new DateTime(2020, 8, 6),
         };
@@ -103,6 +110,7 @@ internal class ProjectControlContext : DbContext
             Name = "Techaza",
             Client = "Wunderwerk",
             Executor = "Techolite",
+            Priority = 1,
             StartDate = new DateTime(2022, 1, 25),
             EndDate = new DateTime(2023, 8, 15),
         };
@@ -113,6 +121,7 @@ internal class ProjectControlContext : DbContext
             Name = "Luminous",
             Client = "Fonie",
             Executor = "Techolite",
+            Priority = 3,
             StartDate = new DateTime(2019, 3, 20),
             EndDate = new DateTime(2021, 12, 31),
         };
@@ -123,6 +132,7 @@ internal class ProjectControlContext : DbContext
             Name = "Techfluent",
             Client = "Lodex",
             Executor = "Neobot",
+            Priority = 5,
             StartDate = new DateTime(2022, 2, 16),
             EndDate = new DateTime(2022, 9, 5),
         };
@@ -133,6 +143,7 @@ internal class ProjectControlContext : DbContext
             Name = "Techfluent",
             Client = "Bitwise",
             Executor = "MakersLabs",
+            Priority = 2,
             StartDate = new DateTime(2023, 6, 10),
             EndDate = new DateTime(2023, 9, 10),
         };
@@ -145,37 +156,33 @@ internal class ProjectControlContext : DbContext
         string[] lastNames = { "Smarsh", "Chenot", "Baskind", "Javier", "Westermeier", "Platter", "Runge" };
         string[] firstNames = { "Davian", "Maisie", "Kaelynn", "Edmond", "Cadence", "Todd", "Avi" };
 
-        var random = new Random(Guid.NewGuid().GetHashCode());
-
         for (int i = 0; i < employees.Length; i++)
         {
             employees[i] = new Employee
             {
                 EmployeeId = i + 1,
-                LastName = lastNames[random.Next(0, 7)],
-                FirstName = firstNames[random.Next(0, 7)],
+                LastName = lastNames[_random.Next(0, 7)],
+                FirstName = firstNames[_random.Next(0, 7)],
                 Patronymic = "Patronymic" + i,
-                Email = random.Next(0, 100) < 15 ? null : "Email" + i
+                Email = _random.Next(0, 100) < 15 ? null : "Email" + i
             };
         }
         return employees;
     }
-
     private static Participation[] GetParticipations()
     {
-        var participations = new Participation[50];
-        var random = new Random(Guid.NewGuid().GetHashCode());
+        var participations = GetEmptyParticipations(50);
+        var projectId = 0;
+        var employeeId = 0;
+
         for (int i = 0; i < participations.Length; i++)
         {
-            var projectId = 0;
-            var employeeId = 0;
-
             do
             {
-                projectId = random.Next(0, 5) + 1;
-                employeeId = random.Next(0, 20) + 1;
+                projectId = _random.Next(1, 6);
+                employeeId = _random.Next(1, 21);
             }
-            while (participations.FirstOrDefault(p => p.EmployeeId == employeeId && p.ProjectId == projectId) != null);
+            while (participations.Any(p => p.ProjectId == projectId && p.EmployeeId == employeeId));
 
             participations[i] = new Participation
             {
@@ -184,13 +191,29 @@ internal class ProjectControlContext : DbContext
                 IsManaged = false
             };
         }
-        var group = participations.GroupBy(p => p.ProjectId);
+        AppointManagers(participations);
+        return participations;
+    }
 
+    private static Participation[] GetEmptyParticipations(int count)
+    {
+        var participations = new Participation[count];
+
+        for (int i = 0; i < count; i++)
+        {
+            participations[i] = new Participation();
+        }
+
+        return participations;
+    }
+    private static void AppointManagers(Participation[] participations)
+    {
+        var group = participations.GroupBy(p => p.ProjectId);
         foreach (var item in group)
         {
             var arr = item.ToArray();
-            arr[random.Next(0, arr.Length)].IsManaged = true;
+            arr[_random.Next(0, arr.Length)].IsManaged = true;
         }
-        return participations.Where(p => p != null).ToArray();
     }
+
 }
