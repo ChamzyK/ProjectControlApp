@@ -20,4 +20,6 @@ td, th {
 
 th {
     background: #bbbbbb;
+    cursor: pointer;
+    user-select:none
 }
