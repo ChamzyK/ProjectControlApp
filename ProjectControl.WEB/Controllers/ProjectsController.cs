@@ -18,8 +18,6 @@ public class ProjectsController : Controller
     private readonly IUnitOfWork _unitOfWork;
     private readonly IGenericRepository<Project> _projectRepo;
 
-    #region Project api
-
     [HttpGet]
     public IActionResult GetProjects()
     {
@@ -58,21 +56,15 @@ public class ProjectsController : Controller
             var projects = _projectRepo.Get(project => project.Executor!.Contains(filter));
             return Json(projects);
         }
-        return BadRequest();
-    }
-
-    [HttpGet("{propName}/{filter:int}")]
-    public IActionResult FilterByInt(string propName, int filter)
-    {
-        if (propName == nameof(Project.Priority))
+        else if (propName == nameof(Project.Priority) && int.TryParse(filter, out int priority))
         {
-            var projects = _projectRepo.Get(project => project.Priority == filter);
+            var projects = _projectRepo.Get(project => project.Priority == priority);
             return Json(projects);
         }
         return BadRequest();
     }
 
-    [HttpGet("{propName}/{startFilter}/{endFilter}")]
+    [HttpGet("{propName}/{startFilter:datetime}/{endFilter:datetime}")]
     public IActionResult FilterByDate(string propName, DateTime startFilter, DateTime endFilter)
     {
         if (propName == nameof(Project.StartDate))
@@ -128,6 +120,4 @@ public class ProjectsController : Controller
         _unitOfWork.SaveChanges();
         return Json(project);
     }
-
-    #endregion
 }

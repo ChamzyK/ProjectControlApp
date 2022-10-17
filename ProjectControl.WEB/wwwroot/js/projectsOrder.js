@@ -48,8 +48,11 @@ function numberComparator(a, b) {
     return a - b;
 }
 function dateComparator(a, b) {
-    const dateA = new Date(a);
-    const dateB = new Date(b);
+    const splittedA = a.split('.')
+    const splittedB = b.split('.')
+
+    const dateA = new Date(splittedA[2], splittedA[1], splittedA[0]);
+    const dateB = new Date(splittedB[2], splittedB[1], splittedB[0]);
 
     return dateA - dateB;
 }
