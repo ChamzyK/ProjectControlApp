@@ -40,7 +40,7 @@ public class ProjectsController : Controller
         return Json(project);
     }
 
-    [HttpGet("{propName:string}/{filter:string}")]
+    [HttpGet("{propName}/{filter}")]
     public IActionResult FilterByString(string propName, string filter) //TODO: rewrite to switch method?
     {
         if(propName == nameof(Project.Name))
@@ -61,7 +61,7 @@ public class ProjectsController : Controller
         return BadRequest();
     }
 
-    [HttpGet("{propName:string}/{filter:int}")]
+    [HttpGet("{propName}/{filter:int}")]
     public IActionResult FilterByInt(string propName, int filter)
     {
         if (propName == nameof(Project.Priority))
@@ -72,7 +72,7 @@ public class ProjectsController : Controller
         return BadRequest();
     }
 
-    [HttpGet("{propName:string}/{startFilter:DateTime}/{endFilter:DateTime}}")]
+    [HttpGet("{propName}/{startFilter}/{endFilter}")]
     public IActionResult FilterByDate(string propName, DateTime startFilter, DateTime endFilter)
     {
         if (propName == nameof(Project.StartDate))

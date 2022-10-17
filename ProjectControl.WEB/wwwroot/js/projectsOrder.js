@@ -39,8 +39,8 @@ function stringComparator(a, b) {
     const nameA = a.toLowerCase();
     const nameB = b.toLowerCase();
 
-    if (nameA > nameB) return -1;
-    if (nameA < nameB) return 1;
+    if (nameA < nameB) return -1;
+    if (nameA > nameB) return 1;
 
     return 0;
 }
@@ -51,5 +51,5 @@ function dateComparator(a, b) {
     const dateA = new Date(a);
     const dateB = new Date(b);
 
-    return dateB - dateA;
+    return dateA - dateB;
 }
