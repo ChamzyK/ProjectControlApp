@@ -12,7 +12,11 @@ internal class ProjectControlContext : DbContext
 
     private static readonly Random _random = new(Guid.NewGuid().GetHashCode());
 
-    public ProjectControlContext(DbContextOptions<ProjectControlContext> options) : base(options) { }
+    public ProjectControlContext(DbContextOptions<ProjectControlContext> options) : base(options)
+    {
+        Database.EnsureDeleted();
+        Database.EnsureCreated();
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
