@@ -1,6 +1,10 @@
 ﻿const API = '/api/projects'
 
 function saveProject() {
+    if (isNotValid()) {
+        return;
+    }
+
     const project = getJsonProject();
 
     if (ID.value == 0) {
@@ -12,6 +16,16 @@ function saveProject() {
 
     reset();
 }
+
+function isNotValid() {
+    return isEmpty(document.getElementById('name').value) ||
+        isEmpty(document.getElementById('client').value) ||
+        isEmpty(document.getElementById('executor').value) ||
+        isNaN(document.getElementById('priority').value) ||
+        document.getElementById('startDate').value == '' ||
+        document.getElementById('endDate').value == '';
+}
+
 function getJsonProject() {
     return JSON.stringify({
         projectId: document.getElementById('idInput').value,

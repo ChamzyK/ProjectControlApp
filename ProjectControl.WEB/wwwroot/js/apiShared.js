@@ -78,6 +78,9 @@ function getTr(id) {
     return document.querySelector(selector);
 }
 function createTd(text) {
+    if (text == null) {
+        text = '';
+    }
     const td = document.createElement("td");
     td.append(text);
 
@@ -90,5 +93,9 @@ function getSmallDate(dateString) {
     const month = (date.getMonth() + 1).toString().padStart(2, 0);
     const year = date.getFullYear();
     return `${day}.${month}.${year}`;
+}
+
+function isEmpty(str) {
+    return str.trim() == '';
 }
 

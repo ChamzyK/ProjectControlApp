@@ -1,6 +1,10 @@
 ﻿const API = '/api/employees'
 
 function saveEmployee() {
+    if (isNotValid()) {
+        return;
+    }
+
     const employee = getJsonEmployee();
 
     if (ID.value == 0) {
@@ -12,13 +16,20 @@ function saveEmployee() {
 
     reset();
 }
+
+function isNotValid() {
+    return isEmpty(document.getElementById('lastName').value) ||
+        isEmpty(document.getElementById('firstName').value) ||
+        isEmpty(document.getElementById('patronymic').value);
+}
+
 function getJsonEmployee() {
     return JSON.stringify({
         employeeId: document.getElementById('idInput').value,
         lastName: document.getElementById('lastName').value,
         firstName: document.getElementById('firstName').value,
         patronymic: document.getElementById('patronymic').value,
-        email: document.getElementById('email').value
+        email: document.getElementById('email').value == '' ? null : document.getElementById('email').value 
     });
 }
 async function createEmployee(employee) {
